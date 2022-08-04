@@ -63,6 +63,7 @@ Beispiel:
 
 Wenn immer es geht, ist es sinnvoll Vaiabeln auf dem Stack zu speichern, da es nur eine CPU Anweisung ist (Bei Klassen 2 Anweisungen). Beim Heap hingegen wird der Operator new bzw delete aufgerufen, wodurch wesentlich mehr Anweisungen ausgeführt werden müssen.
 
+
 Smart Pointer:  
 Bei Smart Pointer werden die Schlüsselworter new und delete nicht benötigt, da die Pointer automatisch gelöscht werden, wenn diese nicht mehr benötigt werden. Wann dies der Fall ist hängt von der Smart Pointer Art ab. Um Smart Pointer nutzen zu können braucht man: 
 ```C++
@@ -73,7 +74,59 @@ Können nicht kopiert werden. Es wird auf dem stack angelegt und wird somit gel�
 shared_ptr:  
 Bei einem Shared Pointer wird die Anzahl der Referenzen gezählt. Diese wird in einem anderen Speicherblock (Kontrollblock) gespeichert. Sobald der Zähler auf 0 fällt wird der Speicher freigegeben und der Pointer gelöscht.  
 weak_ptr:  
-Weak Pointer können genutzt werden wie Shared Pointer. Der wesentliche Unterschied ist jedoch, dass sie das Objekt nicht am leben halten, da sie den Zähler nicht erhöhen. D. h. wird ein Weak Pointer mit einem Shared Pointer initialisiert wird das Objekt freigegeben sobald man nicht mehr im Scope des Shared Pointers ist.  
+Weak Pointer können genutzt werden wie Shared Pointer. Der wesentliche Unterschied ist jedoch, dass sie das Objekt nicht am leben halten, da sie den Zähler nicht erhöhen. D. h. wird ein Weak Pointer mit einem Shared Pointer initialisiert wird das Objekt freigegeben sobald man nicht mehr im Scope des Shared Pointers ist.
+
+
+
+## Java 
+
+### Speicherverwaltung
+
+Methoden und deren lokalen Variablen werden immer auf dem Stack gespeichert. Wird die Methode aufgerufen, wird diese im Stack gespeichert. Bei verlassen der Methode wird dieser Speicherplatz wieder frei und die Methode wie auch alle Variablen, die in der Methode erstellt werden, verschwinden vom Stack. Bei mehreren Aufrufen von Methoden werden die Methoden nacheinander dem Stack hinzugefügt bzw. entfernt. Es kommt zu einem StackOverFlow, wenn so viele Methoden gestapelt werden, sodass der Speicher des Stacks nicht ausreicht.  
+Objekte und Instanzvariablen werden auf dem Heap gespeichert. Gründe dafür sind: 
+1. Ein Objekt umfasst meist mehrere Variablen wodurch mehr Speicher benötigt wird.
+2. Ein Objekt muss unter umständen länger im Programm existieren.
+Die Referenzvariablen sind im Stack und zeigen auf das Objekt im Heap. Wenn nun das Objekt nicht mehr benötigt wird, muss lediglich die Verbindung getrennt werden. Anschließend wird das Objekt vom Garbage Collector entfernt. Der Garbage Collector ist ein Java-Feature, welches in regelmäßigen Abständen nach Objekten ohne Verweis sucht und den Speicher von diesen wieder freigibt. Werden die Objekte gelöscht, so werden auch die dazugehörigen Instanzvariablen gelöscht.
+
+```Java
+public static void main(String[] args) {    //Stack
+    int a = 5;                              //Stack
+    Mensch mensch1 = new Mensch();          //Referenzvariable mensch1: Stack   Menschobjekt: Heap
+    mensch1.gewicht = 70;                   //Instanzvariable gewicht: Heap
+    Mensch mensch2 = new Mensch();
+    mensch1 = mensch2;                      //Das erste Menschobjekt hat keinen Verweis mehr und wird vom Garbage Collector gelöscht
+}
+```
+
+### Java Compiler und Interpreter
+
+Der Quellcode wird zunächst vorcompiliert mit javac. Dadurch entsteht eine .class Datei. In der Datei ist ein Bytecode, welcher durch einen virtuellen Prozessor (Java virtual machine) mit java interpretiert. Der virtuelle Prozessor gibt den interpretierten Code an den realen Prozessor weiter, welchen diesen ausführt.  
+Vorteil: Plattformunabhängig, solange der virtuelle Prozessor installiert ist.
+Nachteil: Geschwindigeit wesentlich langsamer als compilierte Programme.
+
+
+### Linken in Java
+Es gibt kein dynamisches bzw. statisches Linken. Klassen werden mithilfe eines Classloaders aus Jars geladen.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 
 
