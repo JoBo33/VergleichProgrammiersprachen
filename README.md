@@ -19,8 +19,14 @@ Beide agieren als Übersetzer des geschriebenen Codes in Maschinensprache. Die A
   Der Linker ließt den Objektcode und die Bibliotheken und fügt sie zusammen. Jetzt sind alle Adressen bekannt und der Maschinencode kann vervollständigt werden. Hierbei überprüft der Linker die einzelnen Verbindungen der Dateien, d. h. es wird geguckt ob alle Funktionen, die in einer Datei genutzt werden, in anderen Dateien gefunden werden können.  Ist dies nicht der Fall entsteht ein 'Linking Error': unresolved external symbols. Andersfalls ist der Output ein ausführbarer Maschinencode (.exe).
 
 ### Statisches und dynamisches linken
-Beim statischen Linken wird die Bibliothek (.lib) in das Programm gebunden (einamlig). Statisches Linken ist technisch gesehen schneller.
-Beim dynamischen Linken wird die Bibliothek (.dll) zur Laufzeit verlinkt (immer wieder), d. h. wenn das Programm die Bibliothek benötigt, wird geguckt ob die Bibliothek vorhanden ist.
+Beim statischen Linken wird die Bibliothek (.lib) in das Programm gebunden (einamlig). 
+Vorteil: Portabilität  
+Nachteil: Potentiell höherer Speicherbedarf  
+  
+Beim dynamischen Linken wird die Bibliothek (.dll) zur Laufzeit verlinkt (immer wieder), d. h. wenn das Programm die Bibliothek benötigt, wird geguckt ob die Bibliothek vorhanden ist.  
+Vorteil: Bibliotheken können leicht ausgetauscht werden  
+Nachteil: Es muss sicher gestellt werden, dass die richtige Version installiert ist.  
+  
 Statisches Linken Beispiel: Zuerst ist ein neuer Ordner dem Projekt hinzuzufügen (hier: Include). In diesen Werden die Dateien hinein kopiert, welche gelinkt werden sollen. Im Beispiel wird lediglich die Datei x.h hinzugefügt. Um auf die Dateien zugreifen zu können, muss der Pfad des neuen Ordners in die Projekteigenschaften  unter C/C++ -> Allgemein -> Zusätzliche Includeverzeichnisse angegeben werden.
 
 ![Include](https://github.com/JoBo33/VergleichProgrammiersprachen/blob/main/InkedC%2B%2BCompilerLinker-Eigenschaftenseiten.jpg "Ordner hinzufügen")
@@ -85,7 +91,8 @@ Weak Pointer können genutzt werden wie Shared Pointer. Der wesentliche Untersch
 Methoden und deren lokalen Variablen werden immer auf dem Stack gespeichert. Wird die Methode aufgerufen, wird diese im Stack gespeichert. Bei verlassen der Methode wird dieser Speicherplatz wieder frei und die Methode wie auch alle Variablen, die in der Methode erstellt werden, verschwinden vom Stack. Bei mehreren Aufrufen von Methoden werden die Methoden nacheinander dem Stack hinzugefügt bzw. entfernt. Es kommt zu einem StackOverFlow, wenn so viele Methoden gestapelt werden, sodass der Speicher des Stacks nicht ausreicht.  
 Objekte und Instanzvariablen werden auf dem Heap gespeichert. Gründe dafür sind: 
 1. Ein Objekt umfasst meist mehrere Variablen wodurch mehr Speicher benötigt wird.
-2. Ein Objekt muss unter umständen länger im Programm existieren.
+2. Ein Objekt muss unter umständen länger im Programm existieren.  
+
 Die Referenzvariablen sind im Stack und zeigen auf das Objekt im Heap. Wenn nun das Objekt nicht mehr benötigt wird, muss lediglich die Verbindung getrennt werden. Anschließend wird das Objekt vom Garbage Collector entfernt. Der Garbage Collector ist ein Java-Feature, welches in regelmäßigen Abständen nach Objekten ohne Verweis sucht und den Speicher von diesen wieder freigibt. Werden die Objekte gelöscht, so werden auch die dazugehörigen Instanzvariablen gelöscht.
 
 ```Java
@@ -97,11 +104,11 @@ public static void main(String[] args) {    //Stack
     mensch1 = mensch2;                      //Das erste Menschobjekt hat keinen Verweis mehr und wird vom Garbage Collector gelöscht
 }
 ```
-
+![Java Heap](https://github.com/JoBo33/VergleichProgrammiersprachen/blob/main/JavaHeap.png "Java Heap")
 ### Java Compiler und Interpreter
-
+![Java Compile](https://github.com/JoBo33/VergleichProgrammiersprachen/blob/main/JavaCompile.png "Java Compile")
 Der Quellcode wird zunächst vorcompiliert mit javac. Dadurch entsteht eine .class Datei. In der Datei ist ein Bytecode, welcher durch einen virtuellen Prozessor (Java virtual machine) mit java interpretiert. Der virtuelle Prozessor gibt den interpretierten Code an den realen Prozessor weiter, welchen diesen ausführt.  
-Vorteil: Plattformunabhängig, solange der virtuelle Prozessor installiert ist.
+Vorteil: Plattformunabhängig, solange der virtuelle Prozessor installiert ist.  
 Nachteil: Geschwindigeit wesentlich langsamer als compilierte Programme.
 
 
