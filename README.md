@@ -58,7 +58,7 @@ Beim Heap handelt es sich um dynamischen Speicher. Der Speicher muss explizit an
 Beispiel:
 ```C++
 {
-    int *a = bew int [5];       //anfordern
+    int *a = new int [5];       //anfordern
     for (int i = 0; i < 5; i++)
     {
         a[i] = i;
@@ -76,7 +76,7 @@ Bei Smart Pointer werden die Schlüsselworter new und delete nicht benötigt, da
 #include <memory>
 ```
 unique_ptr:  
-Können nicht kopiert werden. Es wird auf dem stack angelegt und wird somit gelöscht wenn aus dem Scope gegangen wird.  
+Können nicht kopiert werden. unique_ptr wird als container genutzt, welcher auf dem Stack angelegt wird. Das Objekt selber liegt dennoch auf dem Heap.  
 shared_ptr:  
 Bei einem Shared Pointer wird die Anzahl der Referenzen gezählt. Diese wird in einem anderen Speicherblock (Kontrollblock) gespeichert. Sobald der Zähler auf 0 fällt wird der Speicher freigegeben und der Pointer gelöscht.  
 weak_ptr:  
