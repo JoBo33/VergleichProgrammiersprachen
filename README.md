@@ -106,8 +106,12 @@ Nachteil: Geschwindigeit wesentlich langsamer als compilierte Programme.
 
 
 ### Linken in Java
-Es gibt kein dynamisches bzw. statisches Linken. Klassen werden mithilfe eines Classloaders aus Jars geladen.
-
+Es gibt kein dynamisches bzw. statisches Linken. Klassen werden mithilfe eines Classloaders aus Jars geladen. Hierbei z. B. ein Objekt des URLClassLoaders erstellt.
+```Java
+URLClassLoader cl = new URLClassLoader (new URL[] {new URL("FilePath.jar")});
+Class cls = cl.loadClass ("File");
+```
+Mit der Methode loadClass() wird eine Klasse zurückgegeben. Von dieser kann mit der Methode newInstance() ein Objekt erstellt werden und dieses Ojekt kann dann genutzt werden wie jedes andere Objekt. 
 
 
 
